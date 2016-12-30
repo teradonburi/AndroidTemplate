@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="user"
+            type="com.example.daiki.androidtemplate.model.User"/>
+        <variable name="handlers"
+            type="com.example.daiki.androidtemplate.BaseHandlers"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MainFragment"/>
+
+        <Button
+            android:id="@+id/sendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            android:onClick="@{handlers::onClick}"/>
+
+        <Button
+            android:id="@+id/moveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Move"
+            android:onClick="@{handlers::onClick}"/>
+
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.name}"/>
+
+        <TextView
+            android:id="@+id/age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(@string/format_age, user.age)}"/>
+
+
+    </LinearLayout>
+</layout>

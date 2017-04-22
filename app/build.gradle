@@ -16,6 +16,7 @@ repositories {
 
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.android.application'
+apply plugin: 'com.github.gfx.ribbonizer'
 
 android {
     compileSdkVersion 25
@@ -27,13 +28,23 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // 固定値パラメータ
+        buildConfigField 'String', 'END_POINT', '"https://randomuser.me/"'
     }
     buildTypes {
+        debug {
+            // debug時はパッケージ名を変える
+            applicationIdSuffix ".debug"
+        }
         release {
             minifyEnabled false
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
         }
     }
+    // JDK8 for retrolambda
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -41,6 +52,11 @@ android {
     dataBinding {
         enabled = true
     }
+
+}
+
+ribbonizer {
+    iconNames "@drawable/ic_launcher"
 }
 
 dependencies {
@@ -49,6 +65,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    // Support library
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.android.support:appcompat-v7:25.0.0'
     // Material Design
@@ -66,6 +83,9 @@ dependencies {
     // Font
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
+    // Auto value
+    provided 'com.google.auto.value:auto-value:1.2'
+    annotationProcessor 'com.google.auto.value:auto-value:1.2'
     // Icepick
     compile 'frankiesardo:icepick:3.2.0'
     provided 'frankiesardo:icepick-processor:3.2.0'
@@ -78,13 +98,15 @@ dependencies {
     annotationProcessor 'org.parceler:parceler:1.1.6'
     // EventBus
     compile 'org.greenrobot:eventbus:3.0.0'
-    // RxJava2
+    // RxJava2+RxAndroid
     compile "io.reactivex.rxjava2:rxjava:2.0.9"
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     // Piccasso
     compile 'com.squareup.picasso:picasso:2.5.2'
     // Dagger2
     compile 'com.google.dagger:dagger:2.9'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
+    provided 'javax.annotation:jsr250-api:1.0'
     // Retrofit2
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
     compile 'com.squareup.retrofit2:retrofit:2.2.0'

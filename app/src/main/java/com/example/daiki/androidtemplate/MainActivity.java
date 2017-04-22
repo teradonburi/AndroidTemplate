@@ -3,8 +3,10 @@ package com.example.daiki.androidtemplate;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.example.daiki.androidtemplate.api.CallUserApi;
 import com.example.daiki.androidtemplate.event.BackEvent;
 import com.example.daiki.androidtemplate.event.BaseEvent;
 import com.example.daiki.androidtemplate.event.MoveEvent;
@@ -23,6 +25,8 @@ public class MainActivity extends BaseActivity{
 
     @Inject
     Context appContext;
+    @Inject
+    CallUserApi userApi;
 
     @Override
     protected void inject(AppComponent component) {
@@ -52,6 +56,13 @@ public class MainActivity extends BaseActivity{
         fragmentManager =  getSupportFragmentManager();
         // Backstackイベント
         //fragmentManager.addOnBackStackChangedListener(this);
+
+        userApi.fetchUser()
+                .subscribe(response -> {
+                    Log.d("param",response.toString());
+                },throwable -> {
+                    Log.d("error:",throwable.toString());
+                });
 
         if (savedInstanceState == null){
             fragmentManager

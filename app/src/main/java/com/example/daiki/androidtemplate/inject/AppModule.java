@@ -5,8 +5,12 @@ package com.example.daiki.androidtemplate.inject;
  */
 
 
+import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
+import com.example.daiki.androidtemplate.BuildConfig;
 import com.example.daiki.androidtemplate.event.Presenter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,6 +29,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
@@ -51,6 +56,12 @@ public class AppModule {
 
     @Provides
     @Singleton
+    SharedPreferences providesSharedPreferences(Application application) {
+        return PreferenceManager.getDefaultSharedPreferences(application);
+    }
+
+    @Provides
+    @Singleton
     public OkHttpClient provideOkHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder().addInterceptor(
                 new Interceptor() {
@@ -59,18 +70,25 @@ public class AppModule {
                         Request original = chain.request();
 
                         // リクエスト共通パラメータ追加
+                        /*
                         HttpUrl url = original.url().newBuilder()
                                 .addQueryParameter("common_param","hogehoge").build();
 
                         Request request = original.newBuilder().url(url).build();
                         return chain.proceed(request);
+                        */
+                        return chain.proceed(original);
                     }
                 });
+        // 読み込みタイムアウト
         builder.readTimeout(3000, TimeUnit.MILLISECONDS);
+        // 書き込みタイムアウト
         builder.writeTimeout(3000, TimeUnit.MILLISECONDS);
+        // 接続タイムアウト
         builder.connectTimeout(3000,TimeUnit.MILLISECONDS);
         return builder.build();
     }
+
 
     @Provides
     @Singleton
@@ -84,12 +102,11 @@ public class AppModule {
     @Singleton
     public Retrofit provideRetrofit(@Named("gson") Gson gson, OkHttpClient okHttpClient) {
 
-        final String serverUrl = "https://randomuser.me/";
-
         return new Retrofit.Builder()
-                .baseUrl(serverUrl)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .baseUrl(BuildConfig.END_POINT)
                 .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
     }

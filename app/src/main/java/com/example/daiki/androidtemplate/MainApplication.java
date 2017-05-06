@@ -48,13 +48,15 @@ public class MainApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
+        if(BuildConfig.DEBUG){
+            StrictMode.enableDefaults();
+            if (LeakCanary.isInAnalyzerProcess(this)) {
+                // This process is dedicated to LeakCanary for heap analysis.
+                // You should not init your app in this process.
+                return;
+            }
+            installLeakCanary(this);
         }
-        StrictMode.enableDefaults();
-        installLeakCanary(this);
 
 
         appComponent = DaggerAppComponent.builder()

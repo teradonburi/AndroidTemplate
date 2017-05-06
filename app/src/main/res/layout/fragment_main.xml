@@ -1,50 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android">
-
+<layout>
     <data>
         <variable
-            name="user"
-            type="com.example.daiki.androidtemplate.model.User"/>
-        <variable name="handlers"
-            type="com.example.daiki.androidtemplate.BaseHandlers"/>
-    </data>
+            name="viewModel"
+            type="com.example.daiki.androidtemplate.viewmodel.MainFragmentViewModel"/>
 
-    <LinearLayout
-        android:orientation="vertical" android:layout_width="match_parent"
+    </data>
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MainFragment"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/sendButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Send"
-            android:onClick="@{handlers::onClick}"/>
+            <com.example.daiki.androidtemplate.view.SquareImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_gravity="center_horizontal"
+                app:imageUrl="@{viewModel.thumbnail}"
+                />
 
-        <Button
-            android:id="@+id/moveButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Move"
-            android:onClick="@{handlers::onClick}"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:text="@{viewModel.name}"
+                />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="14sp"
+                android:textColor="@color/colorAccent"
+                android:text="@{viewModel.email}"
+                />
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{user.name}"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{String.format(@string/format_age, user.age)}"/>
-
-
-    </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
 </layout>

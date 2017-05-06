@@ -1,21 +1,31 @@
 package com.example.daiki.androidtemplate.inject;
 
-
-import com.example.daiki.androidtemplate.MainActivity;
-import com.example.daiki.androidtemplate.MainFragment;
-import com.example.daiki.androidtemplate.SubFragment;
+import com.example.daiki.androidtemplate.inject.lifecycle.LifecycleModule;
+import com.example.daiki.androidtemplate.inject.lifecycle.LifecycleComponent;
+import com.example.daiki.androidtemplate.inject.request.RequestComponent;
+import com.example.daiki.androidtemplate.inject.request.RequestModule;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
 
+/**
+ * Created by daiki on 2017/04/28.
+ */
+
 @Singleton
 @Component(modules = {AppModule.class})
 public interface AppComponent {
 
-    void inject(MainActivity mainActivity);
+    // Activity、Fragment関連のコンポーネント
+    LifecycleComponent lifecycleComponent(
+            LifecycleModule lifecycleModule
+    );
 
-    void inject(MainFragment mainFragment);
+    // 通信コンポーネント
+    RequestComponent requestComponent(
+            RequestModule requestModule
+    );
 
-    void inject(SubFragment mainFragment);
+
 }

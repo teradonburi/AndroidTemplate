@@ -1,11 +1,3 @@
 <resources>
-    <!-- AppName -->
     <string name="app_name">AndroidTemplate</string>
-    <!-- format -->
-    <string name="format_age">%d歳</string>
-    <!-- Slack channel for send memory leak-->
-    <string name="slack_url">https://slack.com</string>
-    <string name="slack_api_token"></string><!-- チームアクセストークン -->
-    <string name="slack_memory_leak_channel"></string><!-- 投稿チャンネル -->
-
 </resources>

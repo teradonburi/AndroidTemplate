@@ -1,7 +1,14 @@
-package com.example.daiki.androidtemplate;
+package com.example.daiki.androidtemplate.service;
+
+/**
+ * Created by daiki on 2017/05/06.
+ */
+
 
 import android.util.Log;
 
+import com.example.daiki.androidtemplate.BuildConfig;
+import com.example.daiki.androidtemplate.R;
 import com.squareup.leakcanary.AnalysisResult;
 import com.squareup.leakcanary.DisplayLeakService;
 import com.squareup.leakcanary.HeapDump;
@@ -63,11 +70,11 @@ public final class LeakUploadService extends DisplayLeakService {
     public void onCreate() {
         super.onCreate();
         slackApi = new Retrofit.Builder()
-                .baseUrl(getString(R.string.slack_url))
+                .baseUrl(BuildConfig.SLACK_URL)
                 .build()
                 .create(SlackApi.class);
-        TOKEN = getString(R.string.slack_api_token);
-        MEMORY_LEAK_CHANNEL = getString(R.string.slack_memory_leak_channel);
+        TOKEN = BuildConfig.SLACK_API_TOKEN;
+        MEMORY_LEAK_CHANNEL = BuildConfig.SLACK_MEMORY_LEAK_CHANNEL;
     }
 
 
@@ -83,7 +90,7 @@ public final class LeakUploadService extends DisplayLeakService {
         if (!result.leakFound || result.excludedLeak) {
             return;
         }
-        super.afterDefaultHandling(heapDump,result,leakInfo);
+        super.afterDefaultHandling(heapDump, result, leakInfo);
 
 
         String name = classSimpleName(result.className);
@@ -92,11 +99,10 @@ public final class LeakUploadService extends DisplayLeakService {
         }
 
 
-
         String title = name + " has leaked";
         String initialComment = leakInfo;
-        Log.d("leakinfo",leakInfo);
-        Log.d("heapdump",heapDump.heapDumpFile.toString());
+        Log.d("leakinfo", leakInfo);
+        Log.d("heapdump", heapDump.heapDumpFile.toString());
         Call<Void> request = slackApi.uploadFile(RequestBody.create(MediaType.parse("plain/text"), TOKEN),
                 RequestBody.create(MediaType.parse("application/octet-stream"), heapDump.heapDumpFile),
                 RequestBody.create(MediaType.parse("plain/text"), heapDump.heapDumpFile.getName()),
@@ -107,20 +113,18 @@ public final class LeakUploadService extends DisplayLeakService {
         request.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Log.d("SendRetrofit",response.toString());
+                Log.d("SendRetrofit", response.toString());
 
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Log.e("ErrorRetrofit",t.toString());
+                Log.e("ErrorRetrofit", t.toString());
 
             }
         });
 
     }
-
-
 
 
 }

@@ -4,7 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.example.daiki.androidtemplate.BR;
-import com.example.daiki.androidtemplate.entity.User;
+import com.example.daiki.androidtemplate.entity.UserEntity;
 import com.example.daiki.androidtemplate.util.ToastUtil;
 
 import javax.inject.Inject;
@@ -15,7 +15,7 @@ import javax.inject.Inject;
 
 public class MainFragmentViewModel extends BaseObservable {
 
-    private User user;
+    private UserEntity userEntity;
     private ToastUtil toastUtil;
 
     @Inject
@@ -23,9 +23,9 @@ public class MainFragmentViewModel extends BaseObservable {
         this.toastUtil = toastUtil;
     }
 
-    public void setUser(User user){
-        this.user = user;
-        if(this.user != null){
+    public void setUserEntity(UserEntity userEntity){
+        this.userEntity = userEntity;
+        if(this.userEntity != null){
             notifyPropertyChanged(BR.thumbnail);
             notifyPropertyChanged(BR.name);
             notifyPropertyChanged(BR.email);
@@ -34,17 +34,17 @@ public class MainFragmentViewModel extends BaseObservable {
 
     @Bindable
     public String getThumbnail(){
-        return this.user != null ? this.user.thumbnail : "";
+        return this.userEntity != null ? this.userEntity.thumbnail : "";
     }
 
     @Bindable
     public String getName(){
-        return this.user != null ? this.user.name : "";
+        return this.userEntity != null ? this.userEntity.name : "";
     }
 
     @Bindable
     public String getEmail(){
-        return this.user != null ? this.user.email : "";
+        return this.userEntity != null ? this.userEntity.email : "";
     }
 
 

@@ -5,8 +5,9 @@ import android.os.Bundle;
 
 import com.example.daiki.androidtemplate.MainApplication;
 import com.example.daiki.androidtemplate.api.UserApiUsecase;
-import com.example.daiki.androidtemplate.entity.User;
+import com.example.daiki.androidtemplate.entity.UserEntity;
 import com.example.daiki.androidtemplate.inject.lifecycle.Lifecycle;
+import com.example.daiki.androidtemplate.store.UserStore;
 import com.example.daiki.androidtemplate.util.Timer;
 import com.example.daiki.androidtemplate.util.ToastUtil;
 
@@ -25,17 +26,19 @@ import com.example.daiki.androidtemplate.entity.icepick.UserBundler;
 @Lifecycle
 public class MainActivityViewModel extends BaseObservable{
 
-    @State(UserBundler.class)
-    User mUser;
+    //@State(UserBundler.class)
+    //UserEntity mUserEntity;
     private ToastUtil toastUtil;
     private Timer timer;
+    private UserStore userStore;
 
     @Inject
-    public MainActivityViewModel(final ToastUtil toastUtil){
+    public MainActivityViewModel(final ToastUtil toastUtil,final UserStore userStore){
         this.toastUtil = toastUtil;
         timer = new Timer(()->{
             fetchUser();
         },10000);
+        this.userStore = userStore;
     }
 
     public void startTimer(){
@@ -52,7 +55,7 @@ public class MainActivityViewModel extends BaseObservable{
         UserApiUsecase userApi = MainApplication.getRequestComponent().userApiUsecase();
         userApi.getUser()
                 .subscribe(user -> {
-                    mUser = user;  // 永続化してしまう方がより良い
+                    this.userStore.save(user);
                     // ユーザ更新イベント送信
                     EventBus.getDefault().post(user);
                 },throwable -> {
@@ -71,8 +74,8 @@ public class MainActivityViewModel extends BaseObservable{
         }
     }
 
-    public User getUser(){
-        return mUser;
+    public UserEntity getUser(){
+        return this.userStore.fetch();
     }
 
 }

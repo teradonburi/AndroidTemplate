@@ -1,6 +1,6 @@
 package com.example.daiki.androidtemplate.api;
 
-import com.example.daiki.androidtemplate.entity.User;
+import com.example.daiki.androidtemplate.entity.UserEntity;
 import com.example.daiki.androidtemplate.inject.request.Request;
 import com.google.gson.JsonObject;
 
@@ -26,7 +26,7 @@ public class UserApiUsecase {
         this.retrofit = retrofit;
     }
 
-    public Flowable<User> getUser(){
+    public Flowable<UserEntity> getUser(){
         UserApiClient userApiClient = retrofit.create(UserApiClient.class);
         return userApiClient.getUser()
                 .subscribeOn(Schedulers.computation())
@@ -42,13 +42,13 @@ public class UserApiUsecase {
                     String thumbnail = result.get("picture").getAsJsonObject()
                             .get("large").getAsString();
 
-                    User user = new User();
-                    user.gender = User.Gender.getGender(gender);
-                    user.name = name;
-                    user.email = email;
-                    user.phone = phone;
-                    user.thumbnail = thumbnail;
-                    return user;
+                    UserEntity userEntity = new UserEntity();
+                    userEntity.gender = UserEntity.Gender.getGender(gender);
+                    userEntity.name = name;
+                    userEntity.email = email;
+                    userEntity.phone = phone;
+                    userEntity.thumbnail = thumbnail;
+                    return userEntity;
                 }); // UIスレッドに渡す
     }
 

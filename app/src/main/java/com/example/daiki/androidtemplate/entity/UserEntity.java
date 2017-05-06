@@ -2,6 +2,8 @@ package com.example.daiki.androidtemplate.entity;
 
 import android.text.TextUtils;
 
+import com.google.gson.annotations.Expose;
+
 import org.parceler.Parcel;
 
 /**
@@ -9,7 +11,7 @@ import org.parceler.Parcel;
  */
 
 @Parcel
-public class User {
+public class UserEntity {
 
     public enum Gender{
         MALE("male"),
@@ -34,10 +36,15 @@ public class User {
         }
     }
 
+    @Expose
     public Gender gender;
+    @Expose
     public String name;
+    @Expose
     public String email;
+    @Expose
     public String phone;
+    @Expose
     public String thumbnail;
 
 }

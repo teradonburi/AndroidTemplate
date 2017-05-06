@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.example.daiki.androidtemplate.MainApplication;
 import com.example.daiki.androidtemplate.R;
 import com.example.daiki.androidtemplate.databinding.FragmentMainBinding;
-import com.example.daiki.androidtemplate.entity.User;
+import com.example.daiki.androidtemplate.entity.UserEntity;
 import com.example.daiki.androidtemplate.inject.lifecycle.LifecycleComponent;
 import com.example.daiki.androidtemplate.inject.lifecycle.LifecycleModule;
 import com.example.daiki.androidtemplate.viewmodel.MainFragmentViewModel;
@@ -34,7 +34,7 @@ public class MainFragment extends Fragment {
     private FragmentMainBinding binding;
     private MainFragmentViewModel mainFragmentViewModel;
     @Arg(bundler = ParcelerArgsBundler.class)
-    User user;
+    UserEntity userEntity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class MainFragment extends Fragment {
                 .lifecycleComponent(new LifecycleModule((AppCompatActivity) getActivity()));
         mainFragmentViewModel = lifecycleComponent.mainFragmentViewModel();
         binding.setViewModel(mainFragmentViewModel);
-        mainFragmentViewModel.setUser(user);
+        mainFragmentViewModel.setUserEntity(userEntity);
 
         return binding.getRoot();
     }
@@ -69,8 +69,8 @@ public class MainFragment extends Fragment {
     }
 
     @Subscribe
-    public void onEvent(User user){
-       mainFragmentViewModel.setUser(user);
+    public void onEvent(UserEntity userEntity){
+       mainFragmentViewModel.setUserEntity(userEntity);
     }
 
 }

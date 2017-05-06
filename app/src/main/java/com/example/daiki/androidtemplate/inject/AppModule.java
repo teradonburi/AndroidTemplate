@@ -2,6 +2,8 @@ package com.example.daiki.androidtemplate.inject;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -34,6 +36,12 @@ public class AppModule {
     @Singleton
     Context provideAppContext() {
         return app.getApplicationContext();
+    }
+
+    @Provides
+    @Singleton
+    SharedPreferences provideSharedPreferences(@AppContext Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
 

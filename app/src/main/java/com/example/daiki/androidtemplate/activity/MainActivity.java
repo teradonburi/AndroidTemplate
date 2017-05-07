@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
             fragmentManager.executePendingTransactions();
         }
+
+
     }
 
     @Override

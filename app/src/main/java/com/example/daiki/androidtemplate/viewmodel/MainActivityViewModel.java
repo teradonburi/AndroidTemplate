@@ -8,7 +8,7 @@ import com.example.daiki.androidtemplate.api.UserApiUsecase;
 import com.example.daiki.androidtemplate.entity.UserEntity;
 import com.example.daiki.androidtemplate.inject.lifecycle.Lifecycle;
 import com.example.daiki.androidtemplate.store.UserStore;
-import com.example.daiki.androidtemplate.util.Timer;
+import com.example.daiki.androidtemplate.util.TimerUtil;
 import com.example.daiki.androidtemplate.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -16,8 +16,6 @@ import org.greenrobot.eventbus.EventBus;
 import javax.inject.Inject;
 
 import icepick.Icepick;
-import icepick.State;
-import com.example.daiki.androidtemplate.entity.icepick.UserBundler;
 
 /**
  * Created by daiki on 2017/04/28.
@@ -29,25 +27,26 @@ public class MainActivityViewModel extends BaseObservable{
     //@State(UserBundler.class)
     //UserEntity mUserEntity;
     private ToastUtil toastUtil;
-    private Timer timer;
+    private TimerUtil timerUtil;
     private UserStore userStore;
 
     @Inject
     public MainActivityViewModel(final ToastUtil toastUtil,final UserStore userStore){
         this.toastUtil = toastUtil;
-        timer = new Timer(()->{
+        timerUtil = new TimerUtil(()->{
             fetchUser();
         },10000);
         this.userStore = userStore;
 
+
     }
 
     public void startTimer(){
-        timer.startTimer();
+        timerUtil.startTimer();
     }
 
     public void stopTimer(){
-        timer.stopTimer();
+        timerUtil.stopTimer();
     }
 
 

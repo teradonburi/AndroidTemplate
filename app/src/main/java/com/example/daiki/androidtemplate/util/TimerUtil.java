@@ -6,7 +6,7 @@ import android.os.Handler;
  * Created by daiki on 2017/05/05.
  */
 
-public class Timer {
+public class TimerUtil {
 
     private final static int INFINITE = -1;
     private int requestInterval;
@@ -20,10 +20,10 @@ public class Timer {
     }
 
 
-    public Timer(Callback callback,int requestInterval){
+    public TimerUtil(Callback callback, int requestInterval){
         this(callback,requestInterval,INFINITE);
     }
-    public Timer(Callback callback,int requestInterval,int loopCount){
+    public TimerUtil(Callback callback, int requestInterval, int loopCount){
         this.requestInterval = requestInterval;
         this.loopCount = loopCount;
         this.callback = callback;

@@ -2,9 +2,11 @@ package com.example.daiki.androidtemplate.viewmodel;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.view.View;
 
 import com.example.daiki.androidtemplate.BR;
 import com.example.daiki.androidtemplate.entity.UserEntity;
+import com.example.daiki.androidtemplate.util.KeyboardUtil;
 import com.example.daiki.androidtemplate.util.ToastUtil;
 
 import javax.inject.Inject;
@@ -16,12 +18,14 @@ import javax.inject.Inject;
 public class MainFragmentViewModel extends BaseObservable {
 
     private UserEntity userEntity;
-    private ToastUtil toastUtil;
+    private KeyboardUtil keyboardUtil;
 
     @Inject
-    public MainFragmentViewModel(ToastUtil toastUtil){
-        this.toastUtil = toastUtil;
+    public MainFragmentViewModel(KeyboardUtil keyboardUtil){
+        this.keyboardUtil = keyboardUtil;
+        this.keyboardUtil.showInputMethod();
     }
+
 
     public void setUserEntity(UserEntity userEntity){
         this.userEntity = userEntity;

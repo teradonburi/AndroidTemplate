@@ -16,7 +16,9 @@
         android:name="com.example.daiki.androidtemplate.MainApplication"
         >
 
-        <activity android:name="com.example.daiki.androidtemplate.activity.MainActivity">
+        <activity
+            android:name="com.example.daiki.androidtemplate.activity.MainActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

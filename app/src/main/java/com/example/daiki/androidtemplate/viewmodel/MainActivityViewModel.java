@@ -39,6 +39,7 @@ public class MainActivityViewModel extends BaseObservable{
             fetchUser();
         },10000);
         this.userStore = userStore;
+
     }
 
     public void startTimer(){

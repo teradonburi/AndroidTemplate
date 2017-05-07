@@ -49,6 +49,16 @@
                 android:text="@{viewModel.email}"
                 />
 
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                app:validateMinLength="@{4}"
+                app:validateMaxLength="@{10}"
+                app:validateEmpty="@{true}"
+                />
+
         </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>

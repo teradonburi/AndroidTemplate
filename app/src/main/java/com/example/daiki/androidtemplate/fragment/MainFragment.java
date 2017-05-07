@@ -1,5 +1,6 @@
 package com.example.daiki.androidtemplate.fragment;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.daiki.androidtemplate.MainApplication;
 import com.example.daiki.androidtemplate.R;
@@ -52,6 +54,7 @@ public class MainFragment extends Fragment {
         mainFragmentViewModel = lifecycleComponent.mainFragmentViewModel();
         binding.setViewModel(mainFragmentViewModel);
         mainFragmentViewModel.setUserEntity(userEntity);
+
 
         return binding.getRoot();
     }

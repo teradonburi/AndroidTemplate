@@ -17,6 +17,9 @@ import javax.inject.Inject;
 @Lifecycle
 public class KeyboardUtil {
 
+    //     <activity
+    //          android:windowSoftInputMode="stateVisible|adjustPan">
+
     private AppCompatActivity activity;
 
     @Inject

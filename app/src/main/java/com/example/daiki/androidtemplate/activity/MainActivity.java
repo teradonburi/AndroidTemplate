@@ -1,5 +1,8 @@
 package com.example.daiki.androidtemplate.activity;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -57,5 +60,6 @@ public class MainActivity extends AppCompatActivity {
         mainActivityViewModel.stopTimer();
         super.onStop();
     }
+
 
 }

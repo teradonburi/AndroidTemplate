@@ -51,5 +51,7 @@ public class MainFragmentViewModel extends BaseObservable {
         return this.userEntity != null ? this.userEntity.email : "";
     }
 
+    @Bindable
+    public String getButtonTitle(){ return "Hello"; }
 
 }

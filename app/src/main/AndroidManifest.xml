@@ -19,6 +19,7 @@
 
         <activity
             android:name="com.example.daiki.androidtemplate.activity.MainActivity"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="stateVisible|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
